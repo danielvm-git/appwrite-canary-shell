@@ -1,13 +1,27 @@
-# New project from Appwrite Canaries scaffold
+# Consume the shell Todo app in a language canary
 
-1. Pick language repo (`appwrite-canary-node` recommended).
-2. **GitHub → Use this template** (enable template on Node repo only after pilot is live).
-3. Rename remotes and Appwrite Site host in `docs/platform/DNS.md`.
-4. Rotate secrets: `APPWRITE_*` in GitHub Actions.
-5. Pin shell: `bash path/to/appwrite-canary-shell/scripts/sync-shell.sh .` then `echo vX.Y.Z > public/shell/SHELL_PIN`.
-6. Keep single `VERSION` at repo root; never hardcode version in source.
-7. Run `bash scripts/setup.sh` and `bash scripts/preflight.sh` before first PR.
+1. Checkout a shell release tag (2.x+) or run sync from a local clone.
+2. From the **consumer repo root** (node, python, php, go):
 
-## Version contract
+```bash
+bash ../appwrite-canary-shell/scripts/sync-shell.sh .
+```
 
-`big-release` on `main` writes `VERSION` and the language manifest, then CI builds and deploys that SHA.
+3. Copy env and set canary-specific values:
+
+```bash
+cp .env.example .env
+# VITE_SHARE_FUNCTION_ID=share-task-python (etc.)
+# VITE_CANARY_NAME=Python
+# VITE_REPO_URL=https://github.com/danielvm-git/appwrite-canary-python
+```
+
+4. `public/shell/SHELL_PIN` records the shell git tag from sync.
+
+5. `npm ci && npm run preflight && npm run build` — deploy `dist/` to the Appwrite Site (consumer CI).
+
+6. Keep a single `VERSION` at consumer repo root (big-release); never hardcode version in source.
+
+## Legacy (deprecated)
+
+`prototype/ds` CSS sync is removed in shell 2.x. Use the React `app/` sync only.

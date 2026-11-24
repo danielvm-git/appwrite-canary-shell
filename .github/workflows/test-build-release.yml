@@ -23,6 +23,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: App preflight
+        run: |
+          cd app
+          npm ci
+          CI=1 npm run preflight
       - name: Shell sync check
         run: bash scripts/sync-shell.sh --check
       - name: Conventional Commits

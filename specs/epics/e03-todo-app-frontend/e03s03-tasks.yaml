@@ -1,15 +1,15 @@
 story_id: e03s03
 title: "e03s03 sync v2"
-status: todo
+status: done
 bcps: 4
 tasks:
   - id: 1
     description: "sync-shell --check passes"
     verify: "bash scripts/sync-shell.sh --check"
     risk: P0
-    status: todo
+    status: done
   - id: 2
     description: "temp consumer build"
     verify: "bash scripts/verify-story-e03s03.sh"
     risk: P0
-    status: todo
+    status: done
