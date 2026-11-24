@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- big-release managed -->
 
+## [1.0.0] - 2026-11-24
+
+### Changed
+
+- **feat:** stable shell contract 1.0.0 ([#2](https://github.com/danielvm-git/appwrite-canary-shell/issues/2)) ([524c23b](https://github.com/danielvm-git/appwrite-canary-shell/commit/524c23b1ed68acf75f41ec7faaab98c9fedb4d8d))
+
 ## [0.1.1] - 2026-11-24
 
 ### Fixed
