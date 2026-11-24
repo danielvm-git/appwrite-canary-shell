@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- big-release managed -->
 
+## [0.1.1] - 2026-11-24
+
+### Fixed
+
+- **fix:** prove patch release loop on production ([#1](https://github.com/danielvm-git/appwrite-canary-shell/issues/1)) ([aa89711](https://github.com/danielvm-git/appwrite-canary-shell/commit/aa8971126b351bca1dbf68b26335630878e1de6b))
+
 ## [0.1.0] - 2026-11-24
 
 ### Added
