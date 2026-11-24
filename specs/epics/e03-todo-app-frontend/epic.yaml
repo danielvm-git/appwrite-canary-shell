@@ -1,0 +1,24 @@
+id: e03
+title: "Todo app frontend"
+wsjf: 8.0
+total_bcps: 12
+status: planning
+stories:
+  - id: e03s01
+    title: "feat!: lift Node React into shell app/"
+    bcps: 5
+    status: todo
+    spec: e03s01.md
+    tasks: e03s01-tasks.yaml
+  - id: e03s02
+    title: "feat: config-driven canary build env"
+    bcps: 3
+    status: todo
+    spec: e03s02.md
+    tasks: e03s02-tasks.yaml
+  - id: e03s03
+    title: "feat!: sync-shell.sh v2 copies app/"
+    bcps: 4
+    status: todo
+    spec: e03s03.md
+    tasks: e03s03-tasks.yaml

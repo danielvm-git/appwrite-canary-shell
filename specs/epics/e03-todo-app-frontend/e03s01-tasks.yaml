@@ -1,0 +1,15 @@
+story_id: e03s01
+title: "e03s01 shell app package"
+status: todo
+bcps: 5
+tasks:
+  - id: 1
+    description: "app/ directory builds in shell"
+    verify: "bash scripts/verify-story-e03s01.sh"
+    risk: P0
+    status: todo
+  - id: 2
+    description: "unit tests for taskView and share parsers"
+    verify: "cd app && npm ci && CI=1 npm test"
+    risk: P1
+    status: todo

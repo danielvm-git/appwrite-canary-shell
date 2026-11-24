@@ -1,32 +1,32 @@
-core_value: "Deliver vertical slices with explicit VERSION lineage per shell canary."
+core_value: "Single Todo React frontend consumed by all language canaries via sync-shell.sh v2."
 
 summary: |
-  Repository **appwrite-canary-shell**. Stack: static + bash.
-  First user-visible value: Hello World + v0.1.0 on preview local only (or static preview for shell).
-  Version evolution is owned by this repo's release-plan (not shared with other canaries).
+  Repository **appwrite-canary-shell**. Hosts **`app/`** — the Shadcn Todo SPA lifted from the Node pilot.
+  Consumers: node, python, php, go (static Vite build to each Site).
+  Version line: `feat!` e03 ships shell 2.x and retires `prototype/ds` as default sync payload.
 
 in_scope:
-  - Epics e01–e0N in this repo's release-plan.yaml
-  - CI preflight gate before deploy (wire-ci, observability, hooks as tasks)
-  - smoke-checks.yaml proving version on production URL
+  - Epic e03 — Todo app in `app/`, Vite env, sync-shell v2
+  - Epics e01–e02 historical (footer schema, release)
+  - `npm test` + `npm run build` in shell CI
+  - docs/NEW_PROJECT.md for consumer setup
 
 out_of_scope:
-  - Implementing other language canaries
-  - BigBase API deploy
-  - GSD planning artifacts
+  - Appwrite Functions (live in language repos)
+  - TablesDB provision (program `provision-todo-resources.sh`)
+  - Hello World as primary UI after e03
 
 constraints:
   - Conventional Commits; no Co-authored-by
-  - Host layer 1 in ../../../specs/platform/host-preflight.yaml must pass
-  - VERSION file is written only by big-release prepare, never hand-edited on main
-  - First production version comes from first `feat:` merge (expected 0.1.0 via initialVersion)
+  - Breaking sync contract requires `feat!` and ADR note
+  - Reference [`TODO_APP_REQUIREMENTS`](../../../specs/product/TODO_APP_REQUIREMENTS.md)
 
 success_criteria:
-  - Production URL shows Hello World and tag-matching version after e01s02
-  - fix commit produces next patch visible on site after e02s01
-  - Program ends at v1.0.0 after e08s01
-  - Each epic bump documented in VERSION + footer
+  - e03s01: `app/` tests and build pass in shell repo
+  - e03s02: footer obeys schema with VITE_* env
+  - e03s03: sync-shell copies app; consumer temp build passes
 
 references:
   - ../../../specs/program.yaml
-  - ../../../specs/platform/HOST_SETUP.md
+  - ../../../specs/adr/ADR-ACAN-todo-parity.md
+  - ../../../specs/product/TODO_APP_REQUIREMENTS.md
