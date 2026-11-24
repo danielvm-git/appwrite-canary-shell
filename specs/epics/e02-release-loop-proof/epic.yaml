@@ -1,0 +1,12 @@
+id: e02
+title: "Shell release"
+wsjf: 5.0
+total_bcps: 3
+status: planning
+stories:
+  - id: e02s01
+    title: "fix: shell consumable tag proof"
+    bcps: 3
+    status: todo
+    spec: e02s01.md
+    tasks: e02s01-tasks.yaml

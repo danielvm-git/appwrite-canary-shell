@@ -1,0 +1,17 @@
+release:
+  version: "0.1.0"
+  codename: "shell"
+  status: planning
+  semantic_release: true
+  bump_hint: minor
+
+# WSJF = (Valor + Criticidade Temporal + Redução Risco (+2 se ameaça HIGH)) / Tamanho
+epics:
+  - id: e01
+    title: "Shell library skeleton"
+    wsjf: 7.0
+    capsule_dir: epics/e01-shell-walking-skeleton
+  - id: e02
+    title: "Shell release"
+    wsjf: 5.0
+    capsule_dir: epics/e02-release-loop-proof

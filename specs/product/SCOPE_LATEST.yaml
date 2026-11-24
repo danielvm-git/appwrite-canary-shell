@@ -1,0 +1,32 @@
+core_value: "Deliver vertical slices with explicit VERSION lineage per shell canary."
+
+summary: |
+  Repository **appwrite-canary-shell**. Stack: static + bash.
+  First user-visible value: Hello World + v0.1.0 on preview local only (or static preview for shell).
+  Version evolution is owned by this repo's release-plan (not shared with other canaries).
+
+in_scope:
+  - Epics e01–e0N in this repo's release-plan.yaml
+  - CI preflight gate before deploy (wire-ci, observability, hooks as tasks)
+  - smoke-checks.yaml proving version on production URL
+
+out_of_scope:
+  - Implementing other language canaries
+  - BigBase API deploy
+  - GSD planning artifacts
+
+constraints:
+  - Conventional Commits; no Co-authored-by
+  - Host layer 1 in ../../../specs/platform/host-preflight.yaml must pass
+  - VERSION file is written only by big-release prepare, never hand-edited on main
+  - First production version comes from first `feat:` merge (expected 0.1.0 via initialVersion)
+
+success_criteria:
+  - Production URL shows Hello World and tag-matching version after e01s02
+  - fix commit produces next patch visible on site after e02s01
+  - Program ends at v1.0.0 after e08s01
+  - Each epic bump documented in VERSION + footer
+
+references:
+  - ../../../specs/program.yaml
+  - ../../../specs/platform/HOST_SETUP.md

@@ -1,0 +1,20 @@
+story_id: e01s01
+title: "Footer schema sync preview v0.1.0"
+status: failing
+bcps: 6
+tasks:
+  - id: 1
+    description: "Footer JSON schema validates example"
+    verify: "test -f docs/footer.contract.schema.json && test -f docs/footer.contract.json"
+    risk: P1
+    status: failing
+  - id: 2
+    description: "sync-shell.sh dry-run"
+    verify: "test -x scripts/sync-shell.sh && bash scripts/sync-shell.sh --dry-run"
+    risk: P1
+    status: failing
+  - id: 3
+    description: "Preview shows v0.1.0"
+    verify: "bash scripts/build-preview.sh && rg -q 'v0\.1\.0' dist/preview.html"
+    risk: P1
+    status: failing

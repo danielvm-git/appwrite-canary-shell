@@ -1,0 +1,12 @@
+{
+  "version": "0.1.0",
+  "productLinks": [],
+  "resourceLinks": [],
+  "communityLinks": [],
+  "attribution": {
+    "bigpowersUrl": "https://github.com/danielvm-git/bigpowers",
+    "authorUrl": "https://github.com/danielvm-git",
+    "repoUrl": "https://github.com/danielvm-git/appwrite-canary-node",
+    "changelogUrl": "https://github.com/danielvm-git/appwrite-canary-node/blob/main/CHANGELOG.md"
+  }
+}

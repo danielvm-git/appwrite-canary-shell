@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/danielvm-git/appwrite-canary-shell/docs/footer.contract.schema.json",
+  "title": "AppFooterContract",
+  "type": "object",
+  "required": ["version", "attribution"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Site semver without v prefix; must match root VERSION at build time"
+    },
+    "productLinks": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/link" }
+    },
+    "resourceLinks": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/link" }
+    },
+    "communityLinks": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/link" }
+    },
+    "attribution": {
+      "type": "object",
+      "required": ["bigpowersUrl", "authorUrl"],
+      "properties": {
+        "bigpowersUrl": { "type": "string", "format": "uri" },
+        "authorUrl": { "type": "string", "format": "uri" },
+        "repoUrl": { "type": "string", "format": "uri" },
+        "changelogUrl": { "type": "string", "format": "uri" }
+      }
+    }
+  },
+  "$defs": {
+    "link": {
+      "type": "object",
+      "required": ["label", "href"],
+      "properties": {
+        "label": { "type": "string" },
+        "href": { "type": "string" }
+      }
+    }
+  }
+}

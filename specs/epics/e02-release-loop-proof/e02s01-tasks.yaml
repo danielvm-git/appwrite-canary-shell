@@ -1,0 +1,20 @@
+story_id: e02s01
+title: "fix: patch release on production"
+status: failing
+bcps: 4
+tasks:
+  - id: 1
+    description: "patch tag is greater than previous minor baseline"
+    verify: "git fetch --tags -q 2>/dev/null; test $(git tag -l 'v*' | wc -l) -ge 2"
+    risk: P1
+    status: failing
+  - id: 2
+    description: "VERSION matches latest tag"
+    verify: "v=$(git describe --tags --abbrev=0); test "$(cat VERSION)" = "${v#v}""
+    risk: P1
+    status: failing
+  - id: 3
+    description: "Smoke shows VERSION on preview local only"
+    verify: "ver=$(cat VERSION); curl -sfS https://preview local only/ | rg -q "v$ver""
+    risk: P0
+    status: failing

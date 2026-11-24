@@ -1,0 +1,12 @@
+id: e01
+title: "Shell library skeleton"
+wsjf: 7.0
+total_bcps: 6
+status: planning
+stories:
+  - id: e01s01
+    title: "feat: footer schema sync preview"
+    bcps: 6
+    status: todo
+    spec: e01s01.md
+    tasks: e01s01-tasks.yaml

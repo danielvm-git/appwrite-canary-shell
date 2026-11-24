@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark" data-accent="canary">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>appwrite-canary-node — prototype</title>
+  <link rel="icon" href="ds/assets/bigbase-logo.svg" />
+  <link rel="stylesheet" href="ds/colors_and_type.css" />
+  <link rel="stylesheet" href="ds/components.css" />
+  <link rel="stylesheet" href="ds/canary-layout.css" />
+</head>
+<body>
+
+  <div id="view-landing" class="view-landing">
+    <div class="landing-layout">
+      <div class="landing-pane landing-pane--main">
+        <header class="landing-top">
+          <div class="landing-brand">
+            <img src="ds/assets/bigbase-logo.svg" alt="" width="28" height="28" />
+            <span>Appwrite Canaries</span>
+          </div>
+          <a href="https://appwrite.io/docs" target="_blank" rel="noreferrer" class="btn btn-secondary" style="font-size:12px;padding:6px 12px">Documentation</a>
+        </header>
+        <main class="landing-hero">
+          <p class="page-desc" style="margin-bottom:8px">Node scaffold · public canary</p>
+          <h1>Build on Appwrite with a Console-like shell</h1>
+          <p class="lead">Landing pública com login lateral (padrão Appwrite). Depois do sign-in você entra no projeto <strong>Scaffold</strong> com sidebar, settings e o rodapé compacto BigBase — sem o bloco Product / Resources / Community.</p>
+          <ul class="landing-bullets">
+            <li>Auth, Database e Storage no MVP Node</li>
+            <li>Deploy em <span class="mono">node.danielvm.net</span> via Sites + CI pinado</li>
+            <li>Shell compartilhado em <code>appwrite-canary-shell</code></li>
+          </ul>
+        </main>
+        <footer class="site-footer" aria-label="Marketing links">
+          <div class="footer-grid">
+            <div>
+              <h4>Product</h4>
+              <ul>
+                <li><a href="#" data-goto="auth">Auth</a></li>
+                <li><a href="#" data-goto="databases">Database</a></li>
+                <li><a href="#" data-goto="storage">Storage</a></li>
+                <li><a href="#" data-goto="functions">Functions</a></li>
+                <li><a href="#" data-goto="messaging">Messaging</a></li>
+                <li><a href="#" data-goto="sites">Deploy</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Resources</h4>
+              <ul>
+                <li><a href="https://appwrite.io/docs" target="_blank" rel="noreferrer">Documentation</a></li>
+                <li><a href="https://github.com/danielvm-git/appwrite-canary-shell" target="_blank" rel="noreferrer">Shell repo</a></li>
+                <li><a href="#">CHANGELOG</a></li>
+                <li><a href="#">API Reference</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Community</h4>
+              <ul>
+                <li><a href="https://github.com/danielvm-git" target="_blank" rel="noreferrer">GitHub</a></li>
+                <li><a href="#">Issues</a></li>
+                <li><a href="#">Discussions</a></li>
+              </ul>
+            </div>
+          </div>
+        </footer>
+        <footer class="app-footer" data-testid="landing-app-footer">
+          <div class="app-footer-brand">
+            <span class="app-footer-logo" aria-hidden="true">B</span>
+            <span>© 2026 Appwrite Canaries · MIT</span>
+          </div>
+          <div class="app-footer-meta">
+            <span class="mono version-tag">v0.0.0-prototype</span>
+            <span class="app-footer-sep" aria-hidden="true"></span>
+            <span>Built with <a href="https://github.com/danielvm-git/bigpowers" target="_blank" rel="noreferrer">BigPowers</a> by <a href="https://github.com/danielvm-git" target="_blank" rel="noreferrer">danielvm-git</a></span>
+          </div>
+        </footer>
+      </div>
+      <aside class="landing-pane landing-pane--auth" aria-label="Sign in">
+        <div class="card login-card">
+          <h2 class="card-title-text">Welcome back</h2>
+          <p class="login-sub">Sign in to <strong>Scaffold</strong> on <span class="mono">appwrite.danielvm.net</span></p>
+          <form id="landing-login-form" novalidate>
+            <div class="input-group">
+              <label class="input-label" for="landing-email">Email</label>
+              <input class="input" id="landing-email" type="email" autocomplete="email" value="danielvm@gmail.com" />
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="landing-password">Password</label>
+              <input class="input" id="landing-password" type="password" autocomplete="current-password" placeholder="qualquer senha (mock)" value="mock" />
+            </div>
+            <button type="button" class="btn btn-primary btn-block" id="landing-signin">Sign in</button>
+          </form>
+          <div class="login-divider">or</div>
+          <button type="button" class="btn btn-secondary btn-block" id="landing-magic">Continue with magic link (mock)</button>
+          <p class="login-toggle">New here? <button type="button" class="btn-link" id="landing-register">Create account</button></p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div id="view-console" class="view-console hidden" hidden>
+  <header class="console-topbar">
+    <div class="console-brand">
+          <img src="ds/assets/bigbase-logo.svg" alt="" width="28" height="28" class="sidebar-logo-mark" />
+          <span>Canaries</span>
+        </div>
+    <div class="console-crumb"><b>Node scaffold</b> · demo</div>
+    <button type="button" class="search-mock" aria-label="Search">Search… <span style="float:right;opacity:0.5">⌘K</span></button>
+    <div class="top-icons">
+      <span class="chip mono" title="Project ID">6b04b29a…5784</span>
+      <button type="button" class="icon-btn-top btn btn-ghost" title="Docs" aria-label="Documentation"><i data-lucide="file-text" aria-hidden="true"></i></button>
+      <button type="button" class="icon-btn-top btn btn-ghost" title="Support" aria-label="Support"><i data-lucide="headphones" aria-hidden="true"></i></button>
+      <div class="profile-wrap">
+        <button type="button" class="profile-trigger" id="profile-trigger" aria-expanded="false" aria-haspopup="true">
+          <span class="avatar" aria-hidden="true">D</span>
+          <span class="profile-name">Daniel VM</span>
+          <span class="profile-chev">▼</span>
+        </button>
+        <div class="profile-menu" id="profile-menu" role="menu">
+          <div class="profile-menu-head">
+            <span class="avatar">D</span>
+            <div>
+              <strong>Daniel VM</strong>
+              <span>danielvm@gmail.com</span>
+            </div>
+          </div>
+          <button type="button" class="menu-item" role="menuitem">Account</button>
+          <button type="button" class="menu-item" role="menuitem">Projects</button>
+          <div class="menu-meta">
+            Member since Nov 2026<br>
+            Account status <span class="active-dot">● Active</span><br>
+            <span class="mono">68f64a800030449fc0ab</span>
+          </div>
+          <button type="button" class="menu-item" role="menuitem">Home</button>
+          <button type="button" class="menu-item" role="menuitem">Docs</button>
+          <button type="button" class="menu-item" role="menuitem">Changelog</button>
+          <button type="button" class="menu-item" id="menu-open-theme" role="menuitem">Theme settings</button>
+          <div class="theme-row">
+            <span style="font-size:12px;color:var(--fg-secondary)">Theme</span>
+            <div class="theme-toggle-inner">
+              <button type="button" id="theme-light" class="btn btn-ghost" aria-label="Light theme"><i data-lucide="sun"></i></button>
+              <button type="button" class="active btn btn-ghost" id="theme-dark" aria-label="Dark theme"><i data-lucide="moon"></i></button>
+            </div>
+          </div>
+          <button type="button" class="menu-item menu-signout" id="profile-signout" role="menuitem">Sign out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell">
+    <nav class="sidebar" aria-label="Main">
+      <div class="sidebar-nav-scroll">
+      <div class="nav-group">
+        <div class="nav-label">Overview</div>
+        <button type="button" class="nav-item active" data-panel="overview"><i data-lucide="layout-dashboard" class="sidebar-nav-icon" aria-hidden="true"></i> Overview</button>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Connect</div>
+        <button type="button" class="nav-item" data-panel="apps"><i data-lucide="smartphone" class="sidebar-nav-icon" aria-hidden="true"></i> Apps</button>
+        <button type="button" class="nav-item" data-panel="keys"><i data-lucide="key-round" class="sidebar-nav-icon" aria-hidden="true"></i> API Keys</button>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Build</div>
+        <button type="button" class="nav-item" data-panel="auth"><i data-lucide="shield" class="sidebar-nav-icon" aria-hidden="true"></i> Auth</button>
+        <button type="button" class="nav-item" data-panel="databases"><i data-lucide="database" class="sidebar-nav-icon" aria-hidden="true"></i> Databases</button>
+        <button type="button" class="nav-item" data-panel="storage"><i data-lucide="hard-drive" class="sidebar-nav-icon" aria-hidden="true"></i> Storage</button>
+        <button type="button" class="nav-item stub" data-panel="messaging"><i data-lucide="mail" class="sidebar-nav-icon" aria-hidden="true"></i> Messaging</button>
+        <button type="button" class="nav-item stub" data-panel="functions"><i data-lucide="zap" class="sidebar-nav-icon" aria-hidden="true"></i> Functions</button>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Deploy</div>
+        <button type="button" class="nav-item" data-panel="sites"><i data-lucide="globe" class="sidebar-nav-icon" aria-hidden="true"></i> Sites</button>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Observe</div>
+        <button type="button" class="nav-item" data-panel="usage"><i data-lucide="activity" class="sidebar-nav-icon" aria-hidden="true"></i> Usage</button>
+      </div>
+      </div>
+      <div class="sidebar-settings">
+        <button type="button" class="nav-item settings-btn" data-panel="settings"><i data-lucide="settings" class="sidebar-nav-icon" aria-hidden="true"></i> Settings</button>
+      </div>
+    </nav>
+
+    <div class="main">
+      <div class="main-scroll">
+      <div class="main-inner">
+
+        <section class="panel active" id="panel-overview">
+          <h1 class="page-title ds-h1">Overview</h1>
+          <p class="page-desc">Canary Node — layout “pelado” com integrações Appwrite mínimas (MVP A).</p>
+          <div class="stats">
+            <div class="stat"><label>Version</label><strong class="mono">0.0.0-prototype</strong></div>
+            <div class="stat"><label>Requests</label><strong>—</strong></div>
+            <div class="stat"><label>Deploy target</label><strong style="font-size:13px">node.danielvm.net</strong></div>
+            <div class="stat"><label>Runtime</label><strong>Node</strong></div>
+          </div>
+          <div class="card">
+            <h3>Get started</h3>
+            <p>Use a sidebar para explorar Auth, Database e Storage (simulados neste HTML). Messaging e Functions mostram o estado “stub” do plano.</p>
+            <div class="row">
+              <button type="button" class="btn btn-primary" data-goto="auth">Open Auth</button>
+              <button type="button" class="btn btn-secondary" data-goto="databases">Open Databases</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-apps">
+          <h1 class="page-title ds-h1">Apps</h1>
+          <p class="page-desc">Web / Flutter / etc. — placeholder Connect.</p>
+          <div class="card"><p>Nenhuma platform registrada ainda. No produto real: SDK init + bundle IDs.</p></div>
+        </section>
+
+        <section class="panel" id="panel-keys">
+          <h1 class="page-title ds-h1">API Keys</h1>
+          <p class="page-desc">Chaves server-side para CI e runtime.</p>
+          <div class="card"><p class="mono">APPWRITE_API_KEY=•••••••• (repo secret)</p></div>
+        </section>
+
+        <section class="panel" id="panel-auth">
+          <h1 class="page-title ds-h1">Auth</h1>
+          <p class="page-desc">MVP: login por e-mail / sessão Appwrite.</p>
+          <div class="card">
+            <h3>Session (demo)</h3>
+            <div class="row" style="margin-bottom:12px">
+              <input class="input" type="email" placeholder="Email" value="demo@danielvm.net" />
+              <input class="input" type="password" placeholder="Password" value="••••••••" />
+            </div>
+            <button type="button" class="btn btn-primary" id="fake-login">Login (mock)</button>
+            <p id="auth-status" style="margin-top:12px;font-size:13px;color:var(--fg-secondary)">Não autenticado</p>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-databases">
+          <h1 class="page-title ds-h1">Databases</h1>
+          <p class="page-desc">Uma tabela, listar + criar (demo).</p>
+          <div class="card">
+            <div class="row" style="margin-bottom:16px">
+              <input class="input" id="todo-input" placeholder="New todo title" />
+              <button type="button" class="btn btn-primary" id="todo-add">Create row</button>
+            </div>
+            <div class="table-wrap"><table>
+              <thead><tr><th>id</th><th>title</th><th>created</th></tr></thead>
+              <tbody id="todo-rows">
+                <tr><td class="mono">todo_1</td><td>First deploy to Appwrite</td><td>just now</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-storage">
+          <h1 class="page-title ds-h1">Storage</h1>
+          <p class="page-desc">Upload + URL público (demo).</p>
+          <div class="card">
+            <div class="row">
+              <input type="file" id="file-input" />
+              <button type="button" class="btn btn-secondary" id="fake-upload">Upload (mock)</button>
+            </div>
+            <p id="file-url" style="margin-top:12px;font-size:13px;color:var(--fg-tertiary)" class="mono">No file yet</p>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-messaging">
+          <h1 class="page-title ds-h1">Messaging</h1>
+          <p class="page-desc">Stub até SMTP na instância.</p>
+          <div class="banner">Configure SMTP em appwrite.danielvm.net (Console → SMTP) antes de enviar e-mail real.</div>
+          <div class="card"><p>UI reservada: templates, providers, test send.</p></div>
+        </section>
+
+        <section class="panel" id="panel-functions">
+          <h1 class="page-title ds-h1">Functions</h1>
+          <p class="page-desc">Stub no Node; implementação completa só no canário Go.</p>
+          <div class="banner">Go canary: Site + Appwrite Function no mesmo projeto.</div>
+        </section>
+
+        <section class="panel" id="panel-sites">
+          <h1 class="page-title ds-h1">Sites</h1>
+          <p class="page-desc">Quatro Sites no projeto <strong>Scaffold</strong> — um canário por runtime (Appwrite Sites + CI pinado).</p>
+          <div class="card">
+            <p class="card-title">Public canaries</p>
+            <div class="table-wrap" style="margin-top:var(--space-8)">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Site</th>
+                    <th>Repository</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="https://node.danielvm.net" target="_blank" rel="noopener noreferrer" class="mono">node.danielvm.net</a></td>
+                    <td><a href="https://github.com/danielvm-git/appwrite-canary-node" target="_blank" rel="noopener noreferrer">appwrite-canary-node</a></td>
+                    <td><span class="badge badge-accent"><span class="dot" aria-hidden="true"></span> Pilot</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://python.danielvm.net" target="_blank" rel="noopener noreferrer" class="mono">python.danielvm.net</a></td>
+                    <td><a href="https://github.com/danielvm-git/appwrite-canary-python" target="_blank" rel="noopener noreferrer">appwrite-canary-python</a></td>
+                    <td><span class="badge badge-neutral">Planned</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://php.danielvm.net" target="_blank" rel="noopener noreferrer" class="mono">php.danielvm.net</a></td>
+                    <td><a href="https://github.com/danielvm-git/appwrite-canary-php" target="_blank" rel="noopener noreferrer">appwrite-canary-php</a></td>
+                    <td><span class="badge badge-neutral">Planned</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://go.danielvm.net" target="_blank" rel="noopener noreferrer" class="mono">go.danielvm.net</a></td>
+                    <td><a href="https://github.com/danielvm-git/appwrite-canary-go" target="_blank" rel="noopener noreferrer">appwrite-canary-go</a></td>
+                    <td><span class="badge badge-neutral">Planned</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="input-hint" style="margin-top:var(--space-8)">Deploy: TBR → <span class="mono">big-release</span> → artifact pinado no workflow do repo.</p>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-usage">
+          <h1 class="page-title ds-h1">Usage</h1>
+          <p class="page-desc">Métricas zeradas — igual Console novo.</p>
+          <div class="stats">
+            <div class="stat"><label>Bandwidth</label><strong>0 B</strong></div>
+            <div class="stat"><label>Storage</label><strong>0 B</strong></div>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-settings">
+          <h1 class="page-title ds-h1">Settings</h1>
+          <nav class="tabs settings-tabs" aria-label="Settings sections">
+            <button type="button" class="tab settings-tab active" data-stab="overview">Overview</button>
+            <button type="button" class="settings-tab" data-stab="theme">Theme</button>
+            <button type="button" class="settings-tab" data-stab="domains">Custom domains</button>
+            <button type="button" class="settings-tab" data-stab="variables">Variables</button>
+            <button type="button" class="settings-tab" data-stab="webhooks">Webhooks</button>
+            <button type="button" class="settings-tab" data-stab="migrations">Migrations</button>
+            <button type="button" class="settings-tab" data-stab="smtp">SMTP</button>
+          </nav>
+          <div class="settings-sub active" id="stab-overview">
+            <div class="card">
+              <h3>Name</h3>
+              <p class="page-desc" style="margin-bottom:12px">Scaffold (canary project)</p>
+              <div class="row" style="display:flex;gap:8px">
+                <input class="input" value="Scaffold" style="max-width:320px" />
+                <button type="button" class="btn btn-primary">Update</button>
+              </div>
+            </div>
+            <div class="card">
+              <h3>API credentials</h3>
+              <div class="field-row">
+                <label>Project ID</label>
+                <div class="readonly mono">6b04b29a00127bf05784 <button type="button" class="copy-btn">Copy</button></div>
+              </div>
+              <div class="field-row">
+                <label>API Endpoint</label>
+                <div class="readonly mono">https://appwrite.danielvm.net/v1 <button type="button" class="copy-btn">Copy</button></div>
+              </div>
+              <button type="button" class="btn btn-secondary" data-goto="keys">View API keys</button>
+            </div>
+            <div class="card">
+              <h3>Protocols</h3>
+              <p class="page-desc">Enable or disable API protocols for this project.</p>
+              <span class="row" style="margin-bottom:16px;display:flex;gap:8px">
+                <button type="button" class="btn btn-secondary" style="font-size:12px">Enable all</button>
+                <button type="button" class="btn btn-secondary" style="font-size:12px">Disable all</button>
+              </span>
+              <div class="toggle-row">
+                <div>
+                  <strong>REST</strong>
+                  <p>Standard HTTP API requests from client SDKs.</p>
+                </div>
+                <div class="switch" role="switch" aria-checked="true"></div>
+              </div>
+              <div class="toggle-row">
+                <div>
+                  <strong>GraphQL</strong>
+                  <p>Query API for flexible data fetching.</p>
+                </div>
+                <div class="switch off" role="switch" aria-checked="false"></div>
+              </div>
+            </div>
+          </div>
+          <div class="settings-sub" id="stab-theme">
+            <div class="card">
+              <h3>Appearance</h3>
+              <p class="page-desc">Color mode e accent usam chaves <span class="mono">bigbase-color-mode</span> e <span class="mono">bigbase-theme</span> (SPECS.md).</p>
+              <p class="theme-section-title">Color mode</p>
+              <div class="theme-mode-row" role="group" aria-label="Color mode">
+                <button type="button" class="theme-mode-btn" data-color-mode="dark">
+                  <strong>Dark</strong>
+                  Console padrão
+                </button>
+                <button type="button" class="theme-mode-btn" data-color-mode="light">
+                  <strong>Light</strong>
+                  Fundo claro
+                </button>
+                <button type="button" class="theme-mode-btn" data-color-mode="system" id="theme-mode-system">
+                  <strong>System</strong>
+                  Segue o OS
+                </button>
+              </div>
+              <p class="theme-section-title">Accent theme</p>
+              <p class="page-desc" style="margin-bottom:12px">Appwrite pink no canary; indigo e outros do catálogo BigBase.</p>
+                            <div class="accent-theme-grid" role="group" aria-label="Accent theme">
+                <button type="button" class="theme-menu-item" data-accent-pick="default"><span class="theme-dot" style="background:#4F46E5" aria-hidden="true"></span>BigBase</button>
+                <button type="button" class="theme-menu-item" data-accent-pick="canary"><span class="theme-dot" style="background:#FD366E" aria-hidden="true"></span>Canary</button>
+                <button type="button" class="theme-menu-item" data-accent-pick="january"><span class="theme-dot" style="background:#0D9488" aria-hidden="true"></span>Jan</button>
+                <button type="button" class="theme-menu-item" data-accent-pick="february"><span class="theme-dot" style="background:#EA580C" aria-hidden="true"></span>Feb</button>
+                <button type="button" class="theme-menu-item" data-accent-pick="march"><span class="theme-dot" style="background:#7C3AED" aria-hidden="true"></span>Mar</button>
+                <button type="button" class="theme-menu-item" data-accent-pick="april"><span class="theme-dot" style="background:#16A34A" aria-hidden="true"></span>Apr</button>
+                <button type="button" class="theme-menu-item" data-accent-pick="may"><span class="theme-dot" style="background:#8B5CF6" aria-hidden="true"></span>May</button>
+                <button type="button" class="theme-menu-item" data-accent-pick="june"><span class="theme-dot" style="background:#A855F7" aria-hidden="true"></span>Jun</button>
+                <button type="button" class="theme-menu-item" data-accent-pick="july"><span class="theme-dot" style="background:#FB923C" aria-hidden="true"></span>Jul</button>
+                <button type="button" class="theme-menu-item" data-accent-pick="august"><span class="theme-dot" style="background:#9CA3AF" aria-hidden="true"></span>Aug</button>
+                <button type="button" class="theme-menu-item" data-accent-pick="september"><span class="theme-dot" style="background:#EAB308" aria-hidden="true"></span>Sep</button>
+                <button type="button" class="theme-menu-item" data-accent-pick="october"><span class="theme-dot" style="background:#EC4899" aria-hidden="true"></span>Oct</button>
+                <button type="button" class="theme-menu-item" data-accent-pick="november"><span class="theme-dot" style="background:#2563EB" aria-hidden="true"></span>Nov</button>
+                <button type="button" class="theme-menu-item" data-accent-pick="december"><span class="theme-dot" style="background:#DC2626" aria-hidden="true"></span>Dec</button>
+              </div>
+            </div>
+          </div>
+          <div class="settings-sub" id="stab-domains"><div class="card"><p>Custom domains for Sites — configurar em produção.</p></div></div>
+          <div class="settings-sub" id="stab-variables"><div class="card"><p>Project variables (build-time / runtime).</p></div></div>
+          <div class="settings-sub" id="stab-webhooks"><div class="card"><p>Webhooks CRUD — stub.</p></div></div>
+          <div class="settings-sub" id="stab-migrations"><div class="card"><p>Migrations wizard — stub.</p></div></div>
+          <div class="settings-sub" id="stab-smtp">
+            <div class="banner">SMTP ainda vazio na instância — mesmo aviso do Console real.</div>
+            <div class="card"><p>Configure host, port, credentials para Auth e Messaging.</p></div>
+          </div>
+        </section>
+
+      </div>
+      </div>
+
+      <footer class="app-footer" data-testid="console-app-footer">
+        <div class="app-footer-brand">
+          <span class="app-footer-logo" aria-hidden="true">B</span>
+          <span>© 2026 Appwrite Canaries · MIT</span>
+        </div>
+        <div class="app-footer-meta">
+          <span class="mono version-tag" id="footer-version">v0.0.0-prototype</span>
+          <span class="app-footer-sep" aria-hidden="true"></span>
+          <span>Built with <a href="https://github.com/danielvm-git/bigpowers" target="_blank" rel="noreferrer">BigPowers</a> by <a href="https://github.com/danielvm-git" target="_blank" rel="noreferrer">danielvm-git</a></span>
+          <span class="app-footer-sep" aria-hidden="true"></span>
+          <a href="https://github.com/danielvm-git/appwrite-canary-shell" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="#">Changelog</a>
+        </div>
+      </footer>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    const THEME_MODE_KEY = 'bigbase-color-mode';
+    const THEME_ACCENT_KEY = 'bigbase-theme';
+    const SESSION_KEY = 'appwrite-canary-session';
+    const LEGACY_MODE_KEY = 'appwrite-canary-color-mode';
+    const LEGACY_ACCENT_KEY = 'appwrite-canary-accent';
+
+    function readAccentPref() {
+      let accent = storageGet(THEME_ACCENT_KEY) ?? storageGet(LEGACY_ACCENT_KEY);
+      if (accent === 'appwrite') accent = 'canary';
+      if (accent === 'bigbase') accent = 'default';
+      return accent || 'canary';
+    }
+
+    function applyAccentToDom(accent) {
+      if (!accent || accent === 'default') {
+        document.documentElement.removeAttribute('data-accent');
+      } else {
+        document.documentElement.dataset.accent = accent;
+      }
+    }
+
+    function resolvedColorMode(preference) {
+      if (preference === 'system' || !preference) {
+        return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      return preference === 'light' ? 'light' : 'dark';
+    }
+
+    function applyThemePrefs() {
+      const modePref = storageGet(THEME_MODE_KEY) ?? storageGet(LEGACY_MODE_KEY) ?? 'dark';
+      const accent = readAccentPref();
+      applyAccentToDom(accent);
+      document.documentElement.dataset.theme = resolvedColorMode(modePref);
+      document.documentElement.dataset.modePref = modePref;
+
+      document.querySelectorAll('[data-color-mode]').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.colorMode === modePref);
+      });
+      document.querySelectorAll('[data-accent-pick]').forEach(btn => {
+        btn.classList.toggle('selected', btn.dataset.accentPick === accent);
+      });
+      const resolved = resolvedColorMode(modePref);
+      document.getElementById('theme-light')?.classList.toggle('active', resolved === 'light');
+      document.getElementById('theme-dark')?.classList.toggle('active', resolved === 'dark');
+    }
+
+    function storageSet(key, value) {
+      try { localStorage.setItem(key, value); } catch (_) { /* file:// / private mode */ }
+    }
+    function storageGet(key) {
+      try { return localStorage.getItem(key); } catch (_) { return null; }
+    }
+    function storageRemove(key) {
+      try { localStorage.removeItem(key); } catch (_) {}
+    }
+
+    function setColorMode(preference) {
+      storageSet(THEME_MODE_KEY, preference);
+      applyThemePrefs();
+    }
+
+    function setAccent(accent) {
+      storageSet(THEME_ACCENT_KEY, accent);
+      storageSet(LEGACY_ACCENT_KEY, accent === 'default' ? 'bigbase' : accent === 'canary' ? 'appwrite' : accent);
+      applyThemePrefs();
+    }
+
+    applyThemePrefs();
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+      if ((storageGet(THEME_MODE_KEY) ?? storageGet(LEGACY_MODE_KEY) ?? 'dark') === 'system') applyThemePrefs();
+    });
+
+    document.querySelectorAll('[data-color-mode]').forEach(btn => {
+      btn.addEventListener('click', () => setColorMode(btn.dataset.colorMode));
+    });
+    document.querySelectorAll('[data-accent-pick]').forEach(btn => {
+      btn.addEventListener('click', () => setAccent(btn.dataset.accentPick));
+    });
+    document.getElementById('theme-light')?.addEventListener('click', () => setColorMode('light'));
+    document.getElementById('theme-dark')?.addEventListener('click', () => setColorMode('dark'));
+    document.getElementById('menu-open-theme')?.addEventListener('click', () => {
+      setProfileOpen(false);
+      showPanel('settings');
+      showSettingsTab('theme');
+    });
+
+    function enterConsole(panel) {
+      storageSet(SESSION_KEY, '1');
+      const landing = document.getElementById('view-landing');
+      const consoleEl = document.getElementById('view-console');
+      landing?.classList.add('hidden');
+      landing?.setAttribute('hidden', '');
+      consoleEl?.classList.remove('hidden');
+      consoleEl?.removeAttribute('hidden');
+      document.body.dataset.view = 'console';
+      const target = panel && document.getElementById('panel-' + panel) ? panel : 'overview';
+      showPanel(target);
+      refreshLucide();
+    }
+
+    function exitConsole() {
+      storageRemove(SESSION_KEY);
+      document.getElementById('view-console')?.classList.add('hidden');
+      document.getElementById('view-console')?.setAttribute('hidden', '');
+      const landing = document.getElementById('view-landing');
+      landing?.classList.remove('hidden');
+      landing?.removeAttribute('hidden');
+      document.body.dataset.view = 'landing';
+      setProfileOpen(false);
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+
+    function showPanel(id) {
+      const root = document.getElementById('view-console');
+      if (!root) return;
+      root.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + id));
+      root.querySelectorAll('.nav-item[data-panel]').forEach(n => n.classList.toggle('active', n.dataset.panel === id));
+      if (storageGet(SESSION_KEY) === '1') {
+        history.replaceState(null, '', '#' + id);
+      }
+    }
+    document.querySelectorAll('.nav-item[data-panel]').forEach(btn => {
+      btn.addEventListener('click', () => showPanel(btn.dataset.panel));
+    });
+    document.querySelectorAll('[data-goto]').forEach(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        const panel = el.dataset.goto;
+        if (storageGet(SESSION_KEY) === '1') showPanel(panel);
+        else enterConsole(panel);
+      });
+    });
+
+    function goToConsoleFromLanding() {
+      enterConsole('overview');
+    }
+    document.getElementById('landing-signin')?.addEventListener('click', goToConsoleFromLanding);
+    document.getElementById('landing-magic')?.addEventListener('click', goToConsoleFromLanding);
+    document.getElementById('landing-login-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      goToConsoleFromLanding();
+    });
+    document.getElementById('landing-register')?.addEventListener('click', goToConsoleFromLanding);
+    document.getElementById('profile-signout')?.addEventListener('click', () => exitConsole());
+
+    const params = new URLSearchParams(location.search);
+    const hash = location.hash.replace('#', '');
+    if (params.get('console') === '1' || storageGet(SESSION_KEY) === '1') {
+      enterConsole(hash && document.getElementById('panel-' + hash) ? hash : 'overview');
+    } else if (hash && document.getElementById('panel-' + hash)) {
+      enterConsole(hash);
+    } else {
+      document.body.dataset.view = 'landing';
+    }
+
+    const profileTrigger = document.getElementById('profile-trigger');
+    const profileMenu = document.getElementById('profile-menu');
+    function setProfileOpen(open) {
+      profileMenu?.classList.toggle('open', open);
+      profileTrigger?.classList.toggle('open', open);
+      profileTrigger?.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    profileTrigger?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setProfileOpen(!profileMenu?.classList.contains('open'));
+    });
+    document.addEventListener('click', () => setProfileOpen(false));
+    profileMenu?.addEventListener('click', (e) => e.stopPropagation());
+
+    function showSettingsTab(id) {
+      document.querySelectorAll('.settings-tab').forEach(t => t.classList.toggle('active', t.dataset.stab === id));
+      document.querySelectorAll('.settings-sub').forEach(s => s.classList.toggle('active', s.id === 'stab-' + id));
+    }
+    document.querySelectorAll('.settings-tab').forEach(tab => {
+      tab.addEventListener('click', () => showSettingsTab(tab.dataset.stab));
+    });
+
+    document.querySelectorAll('.switch').forEach(sw => {
+      sw.addEventListener('click', () => {
+        sw.classList.toggle('off');
+        const on = !sw.classList.contains('off');
+        sw.setAttribute('aria-checked', on ? 'true' : 'false');
+      });
+    });
+
+    document.getElementById('fake-login')?.addEventListener('click', () => {
+      document.getElementById('auth-status').textContent = 'Session active (mock JWT)';
+      document.getElementById('auth-status').style.color = 'var(--success)';
+    });
+    let n = 2;
+    document.getElementById('todo-add')?.addEventListener('click', () => {
+      const input = document.getElementById('todo-input');
+      const title = input.value.trim() || 'Untitled';
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td class="mono">todo_${n++}</td><td>${title.replace(/</g,'&lt;')}</td><td>just now</td>`;
+      document.getElementById('todo-rows').appendChild(tr);
+      input.value = '';
+    });
+    document.getElementById('fake-upload')?.addEventListener('click', () => {
+      const f = document.getElementById('file-input').files[0];
+      const name = f ? f.name : 'sample.png';
+      document.getElementById('file-url').textContent = `https://appwrite.danielvm.net/v1/storage/buckets/demo/files/${name}/view?project=demo`;
+    });
+
+    function refreshLucide() {
+      window.lucide?.createIcons();
+    }
+
+    const lucideBoot = document.createElement('script');
+    lucideBoot.src = 'https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js';
+    lucideBoot.onload = refreshLucide;
+    document.head.appendChild(lucideBoot);
+  </script>
+</body>
+</html>
