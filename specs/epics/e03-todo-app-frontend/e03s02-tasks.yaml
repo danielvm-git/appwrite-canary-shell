@@ -1,10 +1,10 @@
 story_id: e03s02
 title: "e03s02 vite env"
-status: todo
+status: done
 bcps: 3
 tasks:
   - id: 1
     description: "build with sample env produces distinct footer"
     verify: "bash scripts/verify-story-e03s02.sh"
     risk: P1
-    status: todo
+    status: done

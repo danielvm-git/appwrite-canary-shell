@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **BREAKING:** `sync-shell.sh` v2 copies `app/` (Todo React SPA) instead of `prototype/ds`. Consumers on shell 1.x must upgrade sync and set `VITE_*` env at build time.
+
 <!-- big-release managed -->
 
 ## [1.0.0] - 2026-11-24

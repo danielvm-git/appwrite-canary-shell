@@ -1,22 +1,27 @@
 # appwrite-canary-shell
 
-Shared UI shell for **Appwrite Canaries**: Appwrite Console–like layout (top nav, sidebar, footer) with BigBase-compatible footer content.
+Shared **Todo React SPA** for Appwrite language canaries. Source lives in [`app/`](app/). Consumers sync via [`scripts/sync-shell.sh`](scripts/sync-shell.sh) v2 (shell 2.x).
 
-This repo has **no runtime deploy**. Consumer repos (`appwrite-canary-node`, etc.) sync assets via `scripts/sync-shell.sh` (e00).
+**Program reference:** workspace `specs/product/TODO_APP_REQUIREMENTS.md`
 
-**Master plan:** [specs/MASTER_PLAN.md](specs/MASTER_PLAN.md)
+## Develop
 
-**Prototype (e00):** [prototype/node-scaffold-prototype.html](prototype/node-scaffold-prototype.html) — landing + console, BigBase [Design System](prototype/ds/README.md), Sites panel lists [node/python/php/go].danielvm.net. Serve from `prototype/`: `python3 -m http.server 8765`.
+```bash
+cd app && npm ci && npm run preflight && npm run build
+```
 
-**e02:** `sync-shell.sh --check` green; release tags prove SemVer loop.
+Root shortcuts: `npm run preflight`, `npm run check` (sync temp consumer build).
 
 ## Pin shell in a consumer
 
-After release tag `v0.1.0`:
+After release tag `v2.x.x`:
 
 ```bash
-bash scripts/sync-shell.sh /path/to/appwrite-canary-node
-echo v0.1.0 > /path/to/appwrite-canary-node/public/shell/SHELL_PIN
+bash /path/to/appwrite-canary-shell/scripts/sync-shell.sh /path/to/appwrite-canary-python
 ```
 
-Consumers record the site version in repo root `VERSION` (big-release), not in `vendor/shell/VERSION`. The pin file is `public/shell/SHELL_PIN`.
+`public/shell/SHELL_PIN` is written with the shell tag. Set `VITE_*` in `.env` before build (see [`app/.env.example`](app/.env.example)).
+
+## Deprecated
+
+[`prototype/ds`](prototype/ds) and HTML prototype remain for history only; **not** synced in v2. Epic e03 replaces them with the Shadcn Todo app from the Node pilot.
