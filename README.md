@@ -8,7 +8,7 @@ This repo has **no runtime deploy**. Consumer repos (`appwrite-canary-node`, etc
 
 **Prototype (e00):** [prototype/node-scaffold-prototype.html](prototype/node-scaffold-prototype.html) — landing + console, BigBase [Design System](prototype/ds/README.md), Sites panel lists [node/python/php/go].danielvm.net. Serve from `prototype/`: `python3 -m http.server 8765`.
 
-**e00 remaining:** `sync-shell.sh`, footer JSON schema, release tag — see [specs/MASTER_PLAN.md](specs/MASTER_PLAN.md).
+**e02:** `sync-shell.sh --check` green; release tags prove SemVer loop.
 
 ## Pin shell in a consumer
 
